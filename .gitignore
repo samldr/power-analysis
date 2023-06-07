@@ -1,0 +1,9 @@
+# python, vscode & os
+.vscode
+venv
+.DS_Store
+
+
+*.png
+!test3.png
+# csv_backup
