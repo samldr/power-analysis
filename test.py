@@ -12,7 +12,7 @@ from scipy import integrate
 
 #%%
 # For loop file pathing
-folder_path = "./csv/"
+folder_path = "./csv_backup/"
 #Length of orbit in minutes approx
 orbit_length = 93 
 # this is used in for loops to get data from sheets
@@ -270,39 +270,42 @@ total_energy= portnrg_array/60+portdepnrg_array/60+starnrg_array/60+stardepnrg_a
 # Turning Wmin into Watt
 total_power= portnrg_array/orbit_length+portdepnrg_array/orbit_length+starnrg_array/orbit_length+stardepnrg_array/orbit_length+zenithnrg_array/orbit_length
 
-
-# Finding data values for min, max, mean for selected range
-dataend = int(np.floor(len(total_power)/2))
-
-# Finding data values for min, max, mean energy
-emin = total_energy[0:dataend].min()
-emean = total_energy[0:dataend].mean()
-emax = total_energy[0:dataend].max()
-
-# Finding data values for min, max, mean power
-pmin = total_power[0:dataend].min()
-pmean = total_power[0:dataend].mean()
-pmax = total_power[0:dataend].max()
-
-# finding index for them in the data, mean doesn't have an index
-emin_idx = np.where(total_energy == emin)[0]
-# most specific number where the mean rounds to an actual value (thousandth), 2 of them so i just chose first one
-emean_idx = np.where(np.round(total_energy,3) == round(emean,3))[0][0]
-emax_idx = np.where(total_energy == emax)[0]
-
-pmean_idx = np.where(np.round(total_power,3) == round(pmean,3))[0]
-pmin_idx = np.where(total_power == pmin)[0]
-pmean_idx = np.where(np.round(total_power,3) == round(pmean,3))[0][0]
-pmax_idx = np.where(total_power == pmax)[0]
+print(total_energy)
+print(total_power)
 
 
+# # Finding data values for min, max, mean for selected range
+# dataend = int(np.floor(len(total_power)/2))
 
-#emean_orbit = (port_list[:,99].mean()+port_dep_list[:,99].mean()+star_list[:,99].mean()+star_dep_list[:,99].mean()+zenith_list[:,99].mean())
-print("Min, idx: " + str(emin) + ", " + str(emin_idx))
-print("Mean, idx: " + str(emean) + ", " + str(emean_idx))
-print("Max, idx: " + str(emax) + ", " + str(emax_idx))
-#print("Mean Power: " + str(emean_orbit))
+# # Finding data values for min, max, mean energy
+# emin = total_energy[0:dataend].min()
+# emean = total_energy[0:dataend].mean()
+# emax = total_energy[0:dataend].max()
 
-print("Min, idx: " + str(pmin) + ", " + str(pmin_idx))
-print("Mean, idx: " + str(pmean) + ", " + str(pmean_idx))
-print("Max, idx: " + str(pmax) + ", " + str(pmax_idx))
+# # Finding data values for min, max, mean power
+# pmin = total_power[0:dataend].min()
+# pmean = total_power[0:dataend].mean()
+# pmax = total_power[0:dataend].max()
+
+# # finding index for them in the data, mean doesn't have an index
+# emin_idx = np.where(total_energy == emin)[0]
+# # most specific number where the mean rounds to an actual value (thousandth), 2 of them so i just chose first one
+# emean_idx = np.where(np.round(total_energy,3) == round(emean,3))[0][0]
+# emax_idx = np.where(total_energy == emax)[0]
+
+# pmean_idx = np.where(np.round(total_power,3) == round(pmean,3))[0]
+# pmin_idx = np.where(total_power == pmin)[0]
+# pmean_idx = np.where(np.round(total_power,3) == round(pmean,3))[0][0]
+# pmax_idx = np.where(total_power == pmax)[0]
+
+
+
+# #emean_orbit = (port_list[:,99].mean()+port_dep_list[:,99].mean()+star_list[:,99].mean()+star_dep_list[:,99].mean()+zenith_list[:,99].mean())
+# print("Min, idx: " + str(emin) + ", " + str(emin_idx))
+# print("Mean, idx: " + str(emean) + ", " + str(emean_idx))
+# print("Max, idx: " + str(emax) + ", " + str(emax_idx))
+# #print("Mean Power: " + str(emean_orbit))
+
+# print("Min, idx: " + str(pmin) + ", " + str(pmin_idx))
+# print("Mean, idx: " + str(pmean) + ", " + str(pmean_idx))
+# print("Max, idx: " + str(pmax) + ", " + str(pmax_idx))

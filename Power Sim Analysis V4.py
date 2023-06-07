@@ -12,7 +12,7 @@ from scipy import integrate
 
 #%%
 # For loop file pathing
-folder_path = "./csv_backup/"
+folder_path = "./csv/"
 #Length of orbit in minutes approx
 orbit_length = 93 
 # this is used in for loops to get data from sheets
@@ -330,6 +330,10 @@ fig.set_facecolor('w')
 
             
 ax1 = plt.subplot(1,1,1)
+print(type(zenithnrg_array))
+print(len(zenithnrg_array))
+print(type(zenithnrg_array[0]))
+print(zenithnrg_array[0])
 ax1.plot(np.linspace(0,days_total,orbit_total),zenithnrg_array/orbit_length,linewidth = 2, color ='dodgerblue',label='Zenith')
 ax1.plot(np.linspace(0,days_total,orbit_total),portdepnrg_array/orbit_length,linewidth = 2,color ='blue',label='Port Deployable')
 ax1.plot(np.linspace(0,days_total,orbit_total),portnrg_array/orbit_length,linewidth = 2,color ='red',label='Port')
@@ -352,7 +356,7 @@ ax1.set_ylim([-.5, 9])
 ax1.set_xlabel('Time (Day)', fontsize = 25)
 ax1.set_ylabel('Power (W)', fontsize = 25)
 ax1.set_title('Power generated per orbit of ExAlta 2', fontsize = 30, pad=20)
-plt.savefig("test3.png")
+plt.savefig("test9.png")
 #%%
 
 # =============================================================================
