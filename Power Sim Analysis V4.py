@@ -12,7 +12,7 @@ from scipy import integrate
 
 #%%
 # For loop file pathing
-folder_path = "./csv/"
+folder_path = "./extras/"
 #Length of orbit in minutes approx
 orbit_length = 93 
 # this is used in for loops to get data from sheets
@@ -303,9 +303,9 @@ pmax_idx = np.where(total_power == pmax)[0]
 # print("Max, idx: " + str(emax) + ", " + str(emax_idx))
 # print("Mean Power: " + str(emean_orbit))
 
-# print("Min, idx: " + str(pmin) + ", " + str(pmin_idx))
-# print("Mean, idx: " + str(pmean) + ", " + str(pmean_idx))
-# print("Max, idx: " + str(pmax) + ", " + str(pmax_idx))
+print("Min, idx: " + str(pmin) + ", " + str(pmin_idx))
+print("Mean, idx: " + str(pmean))
+print("Max, idx: " + str(pmax) + ", " + str(pmax_idx))
 
 #%%
 # =============================================================================
