@@ -155,13 +155,13 @@ font = {'family' : 'serif',
 
 plt.rc('font', **font)
 
-fig = plt.figure(figsize=(16, 6), frameon=True)
+fig = plt.figure(figsize=(16, 8), frameon=True)
 plt.subplots_adjust(hspace=0.0)
 fig.set_facecolor('w')
 
 ax1 = plt.subplot(1,1,1)
 ax1.plot(np.linspace(0,days_total_sun,orbit_total_sun), 1-np.array(sunlight),linewidth = 3, color ='dodgerblue',label='Satellite')
-# ax1.plot(np.linspace(0,days_total_sun,orbit_total_sun), linewidth = 3, color ='dodgerblue',label='Satellite')
+ax1.plot(np.linspace(0,days_total_sun,orbit_total_sun), (1 - np.array(sunlight).mean())*straight_line ,linestyle = "--", linewidth = 3, color ='red',label='Satellite')
 ax1.set_xlim([0,364])
 ax1.set_ylim([0, 0.65])
 
