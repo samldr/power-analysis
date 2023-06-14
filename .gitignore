@@ -1,10 +1,11 @@
-# python, vscode & os
+# python, vscode & os. If you think anything else should go here then add it
 .vscode
 venv
 .DS_Store
 
 
+
 *.png
-extras
-!reference.png
-# csv_backup
+*.csv
+*.txt
+!requirements.txt
