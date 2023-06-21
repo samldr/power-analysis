@@ -13,21 +13,22 @@ from datetime import datetime,timezone
 # TODO: auto detect orbit period
 # TODO: auto process the csv that stk outputs
 
-now = datetime.now(timezone.utc) # get the time to name the files, also to see how long analysis takes
-
-# initializes variables
-orbit_length = 93 #int(input("mins per orbit: \n"))  # minutes per orbit
-csv_files = [] 
-dim = (orbit_length, 1)
-chunksize = orbit_length
+now = datetime.now(timezone.utc) # get the time and date to name the files, also to see how long analysis takes
 
 # set up input and output
 path = "./csv/"
 output_path = "./" + now.strftime("%Y%m%d-%H%M%S")
 mkdir(output_path)
-# stdout = open(output_path + '/report.txt', 'wt')
-# print("test")
+report = open(output_path + '/report.txt','w')
 
+# initializes variables
+orbit_length = int(input("Enter minutes per orbit: "))  # minutes per orbit
+csv_files = [] 
+dim = (orbit_length, 1)
+chunksize = orbit_length
+
+print("Analysis for " + now.strftime("%d/%m/%Y") + " at " + now.strftime("%H:%M:%S") + " UTC\n", file=report)
+print("Orbit period: " + str(orbit_length) + " minutes\n", file=report)
 
 # initializes an empty object for each file in ./csv/
 for root, dirs, files in walk(path, topdown = True):
@@ -40,8 +41,7 @@ for root, dirs, files in walk(path, topdown = True):
                 "intensity": [],
                 "energy": [],
                 })
-            print('Loaded ' + file)
-
+            print('Loaded ' + file, file=report)
 
 
 # retrieves the power and intensity data from the csv files
@@ -78,7 +78,7 @@ for file in csv_files:
 # dataend = int(np.floor(len(total_power)/2)) # I'm not sure why this is here but it made it work for EX2 stuff
 dataend = -1 # for everything else
 
-print("\n==== Power Generated per Orbit ====")
+print("\n==== Power Generated per Orbit ====", file=report)
 
 # finds the max, min, and mean energy, along with their indexes
 emax = total_energy[0:dataend].max()
@@ -88,9 +88,9 @@ emin_idx = np.where(total_energy[0:dataend] == emin)[0]
 emean = total_energy[0:dataend].mean()
 emean_idx = int(min(total_energy[0:dataend], key=lambda n : abs(n - emean))) # finds the index of the closest value to the mean
 
-print("Max Energy: " + str(round(emax,2)) + " Wh")
-print("Min Energy: " + str(round(emin,2)) + " Wh")
-print("Mean Energy: " + str(round(emean,2)) + " Wh\n")
+print("Max Energy: " + str(round(emax,2)) + " Wh", file=report)
+print("Min Energy: " + str(round(emin,2)) + " Wh", file=report)
+print("Mean Energy: " + str(round(emean,2)) + " Wh\n", file=report)
 
 # find the max, min, and mean power, along with their indexes
 pmax = total_power[0:dataend].max()
@@ -99,9 +99,9 @@ pmin = total_power[0:dataend].min()
 pmin_idx = np.where(total_power[0:dataend] == pmin)[0]
 pmean = total_power[0:dataend].mean()
 
-print("Min Power: " + str(round(pmin, 2)) + " W")
-print("Mean Power: " + str(round(pmean, 2)) + " W")
-print("Max Power: " + str(round(pmax,2)) + " W\n")
+print("Min Power: " + str(round(pmin, 2)) + " W", file=report)
+print("Mean Power: " + str(round(pmean, 2)) + " W", file=report)
+print("Max Power: " + str(round(pmax,2)) + " W\n", file=report)
 
 # =============================================================================
 # Power Generated Per Orbit
@@ -139,14 +139,14 @@ ax1.set_ylim([-.5, 9])
 ax1.set_xlabel('Time (Days)', fontsize = 25)
 ax1.set_ylabel('Power (W)', fontsize = 25)
 ax1.set_title('Power Generated per Orbit', fontsize = 30, pad=20)
-plt.savefig(output_path + "/power_gen_per_orbit.png")
+plt.savefig(output_path + "/plot1.png")
 # plt.show()
 
 
 # =============================================================================
 # Fractional Sunlight Exposure
 # =============================================================================
-print("==== Fractional Sunlight Exposure ====")
+print("==== Fractional Sunlight Exposure ====", file=report)
 sunlight = []
 #sunlight_np = np.zeros(len(csv_files[0]["intensity"]))
 for intensity in csv_files[0]["intensity"]:
@@ -178,8 +178,8 @@ ax1.set_ylim([0, 0.65])
 ax1.set_xlabel('Time (Days)', fontsize = 25)
 ax1.set_ylabel('Fraction of Orbital \n Time in Umbra (a.u.)', fontsize = 25)
 ax1.set_title('Orbits by Fractional Sunlight Exposure', fontsize = 30, pad=20)
-plt.savefig(output_path + "/fractional_sunlight_exposure.png")
-print("Mean percentage of time in Umbra: " + str(round(mean * 100, 3)) + "%")
+plt.savefig(output_path + "/plot2.png")
+print("Mean percentage of time in Umbra: " + str(round(mean * 100, 3)) + "%", file=report)
 
 
 
@@ -225,7 +225,6 @@ ax1.set_ylabel(r"Power$_\mathrm{min}$ (W)", fontsize = 20)
 ax2.set_ylabel(r"Power$_\mathrm{max}$ (W)", fontsize = 20)
 ax3.set_ylabel(r"Power$_\mathrm{mean}$ (W)", fontsize = 20)
 ax1.set_title('Power Generated Over Worst, Best, Nominal Case Orbits', fontsize = 30, pad=20)
-plt.savefig(output_path + "/power_gen_worst_best_nominal.png")
+plt.savefig(output_path + "/plot3.png")
 
-print("\n")
-print("Anaylsis finished in " + str(round((datetime.now(timezone.utc) - now).total_seconds(), 1)) + " seconds\n")
+print("\nAnaylsis finished in " + str(round((datetime.now(timezone.utc) - now).total_seconds(), 1)) + " seconds", file=report)

@@ -3,8 +3,7 @@
 venv
 .DS_Store
 
-
-
+# so it doesn
 *.png
 *.csv
 *.txt

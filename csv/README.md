@@ -1,2 +1,1 @@
-put your csv files in here
-this file is just here so git tracks the csv folder
+Put your csv files in this folder.
